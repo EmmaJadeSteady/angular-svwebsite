@@ -1,0 +1,29 @@
+<navi-bar></navi-bar>
+
+<div class="row expanded">
+    <h3>Sample Brochure</h3>
+ <!-- <img  class="hero" src="../shared/images/monitor.jpg"> -->
+</div>
+
+<div  class="row spacing">
+  <div *ngFor="let brochure of brochures" class="medium-4 columns">
+    <div class="card text-center card-spacing">
+        <div class="align-self-middle">
+            <object [data]="getUrl(brochure.url)" type="application/pdf" width="600px" height="400px">
+                <p>This browser does not support PDFs. Please download the PDF to view it: <a href="getUrl(singleBrochure.url)">Download Sample Brochure</a>.</p>
+            </object>
+        </div>
+    </div>
+
+ 
+    <h4>{{brochure.title}}</h4>
+    <h4>{{brochure.sport}}</h4>
+    <!-- <p>{{brochure.content | truncate:140}}</p> -->
+    <div class="button-group align-center">
+        <a class="button" (click)="createBrochure()" >Create Brochure</a>
+        <a class="button alert" (click)="contact()">Contact Us</a>
+    </div>
+       
+  </div>
+</div>
+

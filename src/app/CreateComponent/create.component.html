@@ -1,0 +1,314 @@
+<navi-bar></navi-bar>
+
+
+
+<!--
+Main left
+            display slider of core pages
+            description - professional, print quality info-graphics that communicate the information you most want to see about your season. We can tailor each report with your club logo and also include details of sponsors. 
+            professionally printed in silk colour on high quality paper
+            Explain extra pages 
+Aside
+            No of pages dropdown
+
+            Quantity
+
+            
+
+            cost
+
+            Add to basket
+            save order on- paid confirmation
+            need to add view order to admin section so that it can be seen and send email when order
+            paid. 
+
+            username
+            email
+            selectedPageBundle
+            selectedCopiesBundle
+            selectedPrice
+            clubName
+            teamName
+            clubLogo img
+            clubSponsor img
+            statisticsSource File
+            resultsSource File
+            leagueFlag boolean
+            cupFlag
+            friendlyFlag
+            minBatCriteria number
+            BatingOption
+            minBowlCriteria number
+            BowlingOption
+-->
+
+<div class="row expanded align-center">
+        <h1>Order Your Brochure</h1>
+</div>
+<div class="row expanded align-center">
+    
+<form>
+    <div class="row expanded align-center">
+        <div class="small-12 large-6 columns">
+            <label>Contact name
+                <input type="text" placeholder="Enter Name" id="username" autofocus
+                    [(ngModel)]="username" name="username" required #na="ngModel">
+                <div [hidden]="na.valid || na.pristine" class="alert callout">
+                Name is required
+                </div>
+            </label>
+        </div> 
+    </div>
+   <div class="row expanded align-center">
+        <div class="small-12 large-expand columns">
+            <label>Email Address
+            <input type="text" placeholder="Enter Email Address" id="email"  [(ngModel)]="email" name="email" required #em="ngModel">
+            <div [hidden]="em.valid || em.pristine" class="alert callout">
+                Email is required
+            </div>
+            </label>
+        </div> 
+    </div>
+    <div class="row expanded align-center">
+        <div class="small-12 medium-4 columns"></div>
+        <div class="small-12 medium-4 columns"> 
+            <label><p>Number of Pages<p>
+                <select [(ngModel)]="selectedPageBundle" name="selectedPageBundle" required (change)="bundleChange()" >
+                    <option *ngFor="let i of bundlePages" [ngValue]="i"  >{{i}}</option>
+                </select>             
+            </label>
+        </div>   
+        <div class="small-12 medium-4 columns order-1"> 
+            <p>{{reportDescription}}</p>
+        </div>
+    </div>
+   <div class="row expanded align-center">
+        <div class="small-12 medium-6 columns">     
+            <h6>Quantity</h6>                             
+            <div>
+                <select [(ngModel)]="selectedCopiesBundle" name="selectedCopiesBundle" required (change)="bundleChange()">
+                    <option *ngFor="let i of bundleCopies" [ngValue]="i" >{{i}}</option>
+                </select>
+            </div>
+        </div>  
+    </div>
+    <div class="row expanded align-center">
+        <div class="small-12 medium-6 columns"> 
+            <h6>Price</h6><h6>£{{selectedPrice}}</h6>
+        </div>
+    </div>
+    <div class="row expanded align-center">
+        <div class="small-12 medium-6 columns">
+            <label>Club Name
+            <input type="text" [(ngModel)]="clubName" placeholder="Club Name" id="clubName" name="clubName" required #psClub="ngModel">
+            <div [hidden]="psClub.valid || psClub.pristine" class="alert callout">Club name is required</div>
+            </label>
+        </div>
+    </div>
+    <div class="row expanded align-center">
+        <div class="small-12 medium-6 columns"> 
+            <label>Team Name
+            <input type="text" [(ngModel)]="teamName" placeholder="Team Name" id="teamName" name="teamName" required #psTeam="ngModel">
+            <div [hidden]="psTeam.valid || psTeam.pristine" class="alert callout">Team name is required</div>
+            </label>
+        </div>
+    </div>
+    <div class="row expanded align-center">
+        <div class="small-12 medium-6 columns"> 
+            <p>Club Logo</p>
+            <input type="file" (change)="fileLoad($event)"><br>
+            <img *ngIf = "logoSource" [src] = "logoSource" alt="Logo preview...">
+        </div>
+    </div>
+    <div class="row expanded align-center">
+        <div class="small-12 medium-6 columns"> 
+            <p>Club Sponsor</p>
+            <input type="file" (change)="fileLoad($event)"><br>
+            <img *ngIf = "sponsorSource" [src] = "sponsorSource" alt="Sponsor preview...">
+        </div>
+    </div>
+    <div class="row expanded align-center">
+        <div class="small-12 medium-6 columns"> 
+            <p>Statistics Download: From your play-cricket administration page select Site Settings -> Stats Download. Downloads stats for appropriate season and team and upload them here</p>
+            <input type="file" (change)="fileLoad($event, 'pc-statistics')"><br>
+            <img *ngIf = "statisticsSource" [src] = "statisticsSource" alt="Statistics preview...">
+        </div>
+    </div>
+    <div class="row expanded align-center">
+        <div class="small-12 medium-6 columns"> 
+            <p>Results Download: From your play-cricket administration page select Results -> Results. Downloads results for appropriate season and team and upload them here</p>
+            <input type="file" (change)="fileLoad($event, 'pc-results')"><br>
+            <img *ngIf = "resultsSource" [src] = "resultsSource" alt="Results preview...">
+        </div>
+    </div>
+    <div class="row expanded align-center">
+        <div class="small-12 medium-6 columns"> 
+            <label>Match types to include: </label>
+            <label>League 
+                <input [(ngModel)]="leagueFlag" name="leagueFlag" type="checkbox"/>  Cup 
+                <input [(ngModel)]="cupFlag" name="leagueFlag" type="checkbox"/>  Friendly
+                <input [(ngModel)]="friendlyFlag" name="leagueFlag" type="checkbox"/>                 
+            </label>
+        </div>
+    </div>
+    <div class="row expanded align-center">
+        <div class="small-12 medium-6 columns"> 
+            <label>Batting averages: Eligability criteria - Minimum
+                <input type="text" [(ngModel)]="battingElCriteria" placeholder="Enter minimum" id="battingElCriteria" name="battingElCriteria" required #ebatCriteria="ngModel">
+                <div [hidden]="ebatCriteria.valid || ebatCriteria.pristine" class="alert callout">Enter a minimum number for runs,innings or games</div>
+               
+                <select [(ngModel)]="battingElOptions" name="selectedBattingElOptions" required >
+                    <option *ngFor="let i of battingElOptions" [ngValue]="i" >{{i}}</option>
+                </select>
+                      
+            </label>
+        </div>
+    </div>
+    <div class="row expanded align-center">
+        <div class="small-12 medium-6 columns"> 
+            <label>Bowling averages: Eligability criteria 
+                <input type="text" [(ngModel)]="bowlingElCriteria"placeholder="Enter minimum"  id="bowlingElCriteria" name="bowlingElCriteria" required #ebowlCriteria="ngModel">
+                <div [hidden]="ebowlCriteria.valid || ebowlCriteria.pristine" class="alert callout">Enter a minimum number for wickets,overs or games</div>
+                
+                <select [(ngModel)]="bowlingElOptions" name="selectedBowlingElOptions" required >
+                    <option *ngFor="let i of bowlingElOptions" [ngValue]="i" >{{i}}</option>
+                </select>
+            </label>
+        </div>
+    </div>
+    <div class="row expanded align-center">
+        <div class="small-12 medium-6 columns">     
+            <tr>
+            <div *ngFor='let j of extraPages '>
+               <div *ngIf = "isPlayerProfile(j)" >
+                    <td>Extra Page : Player Name {{j.playerName}}, Profile Type {{j.profilesType}}, Comment {{j.comment}}  </td>
+               </div>
+               <div *ngIf = "!isPlayerProfile(j)" >
+                    <td>Extra Page : Fixture Date {{j.fixtureDate| date:'fullDate' }}, Opposition {{j.opposition}}, Comment {{j.comment}}  </td>
+               </div>
+            </div> 
+         
+            </tr>        
+        </div>
+    </div>
+    <div *ngIf = "selectedPageBundle > 12 && addedPages != selectedPageBundle" class="row expanded align-center">
+        <div class="small-12 medium-6 columns">   
+            <h6>Select detail for additional Match Summary or Player Pages</h6>                             
+            <div>
+                <select [(ngModel)]="selectedExtraPage" name="selectedExtraPage" required (change)="extraPageSelected()">
+                    <option *ngFor="let i of extraPagesTypes" [ngValue]="i" >{{i}}</option>
+                </select>
+            </div>
+            <div *ngIf = "extraPageDetail != null &&  typePlayerProfile">
+                <label>Contact name
+                    <input type="text" placeholder="Players Name" id="playersName" 
+                        [(ngModel)]="playersName" name="playersName" required #player="ngModel">
+                    <div [hidden]="player.valid || player.pristine" class="alert callout">
+                        Name is required
+                    </div>
+                    <select [(ngModel)]="profileSelected" name="profileSelected" required >
+                            <option *ngFor="let i of profiles" [ngValue]="i" >{{i}}</option>
+                    </select>
+                </label>
+                <label>Comment
+                    <textarea placeholder="Enter Comment: e.g. 'Players Player'" name="comment" minlength="10" 
+                    maxlength="100" [(ngModel)]="comment" name="comment" required #cmnt="ngModel">
+                    </textarea>
+                    <div [hidden]="cmnt.valid || cmnt.pristine" class="alert callout">
+                        Comment required
+                    </div>
+                </label>   
+                <div class="expanded ">
+                    <button class="success button " type="button" [disabled]="!player.valid || !cmnt.valid || !profileSelected" 
+                            (click)="addExtraPage()">Add Extra Page</button>
+                </div>                        
+            </div>
+            <div *ngIf = "extraPageDetail != null && !typePlayerProfile">
+                    <label>Fixture Date
+                            <material-datepicker [(date)]="fixtureDate"></material-datepicker>
+                    </label>
+                    <label>Opposition
+                        <input type="text" placeholder="Opposition Name" id="oppositionName" 
+                         [(ngModel)]="oppositionName" name="oppositionName" required #opName="ngModel">
+                        <div [hidden]="opName.valid || opName.pristine" class="alert callout">
+                            Opposition Name is required
+                        </div> 
+                    </label>
+                    <label>Comment
+                        <textarea placeholder="Enter Comment: e.g. 'Players Player'" name="comment" minlength="10" 
+                        maxlength="100" [(ngModel)]="comment" name="comment" required #cmnt="ngModel">
+                        </textarea>
+                        <div [hidden]="cmnt.valid || cmnt.pristine" class="alert callout">
+                            Comment required
+                        </div>
+                    </label>   
+                    <div class="expanded ">
+                        <button class="success button " type="button" [disabled]="!opName.valid || !cmnt.valid " 
+                                (click)="addExtraPage()">Add Extra Page</button>
+                    </div>     
+                
+                <!-- public fixtureDate: Date,
+                public opposition: string, 
+                public comment: string,
+               -->
+            </div> 
+        </div>  
+    </div>
+        <!-- need to allow selection of extra pages up to no. allowed in selection above. 
+            add them as one line in a table perhaps. and let them know max no. reached and disable
+            add button. 
+
+            selection of player profile or match summary
+
+            if select player profile
+                player name
+                profile type
+                comment
+            
+            if select match summary
+                fixture date
+                opposition 
+                comment
+
+            add button enabled when one is finished.  -->
+    
+    <div class="row expanded align-center">
+        <div class="small-12 columns">
+            <div class="expanded ">
+                <button class="success button " type="button" [disabled]="!na.valid || !em.valid" 
+                    (click)="orderBrochure()">Order Brochure</button>
+                <button class="cancel button" type="button" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </div> 
+</form>
+</div>
+
+
+                    <!--  <img class="mini-img" [src]= "brochure.brochurePDF"> 
+                    <embed [src]="getUrl(brochure.url)" width="800px" height="2100px" />                                 
+                    <div id="container">
+                        <div ng2-carouselamos class="slides-wrapper"
+                          [items]="items"
+                          [width]="646"
+                          [$prev]="prev"
+                          [$next]="next"
+                          [$item]="item">
+                        </div>
+                      
+                        <ng-template #prev>
+                            <img src="../shared/images/left-arrow.png" id="left" />
+                        </ng-template>
+                        <ng-template #next>
+                            <img src="../shared/images/right-arrow.png" id="right" />
+                        </ng-template>
+                        <ng-template #item let-item let-i="index">                    
+                            <div class="items">
+                                <img src="{{ item.name }}">
+                            </div>                  
+                        </ng-template>
+                    </div> -->
+             
+    
+
+       

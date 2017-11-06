@@ -1,0 +1,89 @@
+<div class="top-bar">
+    <div class="top-bar-title">Order Admin</div>
+
+    <div class="top-bar-left">
+        <ul class="menu">
+            <li class="admin-menu"><a (click)="chooseMode('add')">Add Order</a></li>
+            <li *ngIf = "menuChoice" class="admin-menu"><a (click)="chooseMode('')">Manage Order</a></li>
+            <li class="admin-manu"><a [routerLink]="['/admin']">Back to Admin</a></li>
+        </ul>
+    </div>
+    <div *ngIf = "theUser" class="top-bar-right">
+        <ul class="menu">
+            <li class="admin-menu"><a (click)="logout()">Logout</a></li>
+            <li class="admin-menu"><a>{{theUser}} Logged in</a></li>
+        </ul>
+    </div>
+</div>
+
+<div [ngSwitch]="menuChoice">
+    <div *ngSwitchCase="'add'"><add-menu></add-menu></div>
+    <div *ngSwitchDefault>
+        <div *ngIf = "formDisplay" class="row">
+            <div class="row" *ngFor="let order  of orders">
+                <div class="row spacer">
+                    <div class="media-object">
+                        <div class="media-object-section">
+                            <div class="align-self-middle">
+                             <!--  <img class="mini-img" [src]= "brochure.brochurePDF"> 
+                                <embed [src]="getUrl(brochure.url)" width="800px" height="2100px" /> -->
+                                <object [data]="getUrl(brochure.url)" type="application/pdf" width="600px" height="400px">
+                                    <p>This browser does not support PDFs. Please download the PDF to view it: <a href="getUrl(singleBrochure.url)">Download Sample Brochure</a>.</p>
+                                </object>
+                            
+                            </div>
+                        </div>
+                        <div class="media-object-section main-section">
+                            <h4>{{order.clubName}}</h4>
+                            <h4>{{order.teamName}}</h4>
+                            <!-- <p>{{brochure.content | truncate:140}}</p> -->
+                            <div class="button-group align-center">
+                                <a class="button" (click)="editOrder(order)" >Edit</a>
+                                <a class="button alert" (click)="deleteOrder(order)">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+            </div>
+        </div>
+        <div *ngIf = "!formDisplay" class="row">
+            <form >
+            <div class="row">
+                <div class="medium-12 columns"><h3>Edit Order</h3></div>
+            </div>
+            <div class="row">
+                <div class="small-12 medium-6 columns">
+                    <label>Order Username
+                        <input type="text" [(ngModel)]="singleOrder.username" 
+                            name="editUsername" required #psTitle="ngModel">
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <!-- <div class="small-12 medium-6 columns">
+                    <label>Post Content
+                        <textarea rows="15" id="content" [(ngModel)]="singlePost.content" 
+                            name="editcontent" required #psContent="ngModel"></textarea>
+                    </label>
+                </div> -->
+                <div class="small-12 medium-6 columns">
+                    <!-- <img [src] = "singlePost.img" alt="Image preview..."> -->
+                    <object [data]="getUrl(singleOrder.clubLogo)" type="application/pdf" width="600px" height="400px">
+                        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="getUrl(singleBrochure.url)">Download Sample Brochure</a>.</p>
+                     </object>                
+                </div>
+            </div> 
+
+            <div class="row align-center">
+                <div class="small-12 columns">
+                    <div class="expanded button-group">
+                        <button class="success button " type="button" [disabled]="!psTitle.valid" 
+                        (click)="updateOrder(singleOrder)">Update Order</button>
+                        <button class="cancel button" type="button" (click)="cancelEdit()">Cancel Edit</button>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div> 
+    </div>       
+</div>

@@ -1,0 +1,21 @@
+/*#container {
+    width: 100%;
+    margin: 5em auto;
+    padding: 0;
+    background:#fff;
+}
+
+.items {
+  
+    background:#ECECEC;
+}
+
+#left, #right { 
+    margin: 30px;
+}*/
+select, input{
+    
+    height: 39px;
+    width: 220px
+}
+

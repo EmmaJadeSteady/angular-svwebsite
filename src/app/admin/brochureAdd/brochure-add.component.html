@@ -1,0 +1,48 @@
+<div class="row">
+        <div class="small-12 medium-6 columns">
+            <h1>Add a Brochure</h1>
+        </div>
+    </div>
+    
+    <form>
+        <div class="row">
+            <div class="small-12 medium-6 columns">
+                <label>Brochure Title
+                <input type="text" [(ngModel)]="brochureTitle" name="brochureTitle" required #psTitle="ngModel">
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 medium-6 columns"> 
+                <label>Sport
+                <input type="text" [(ngModel)]="sport" name="sport" required #psSport="ngModel">
+                </label>
+            </div>
+            <div class="small-12 medium-6 columns"> 
+                <input type="file" (change)="fileLoad($event)"><br>
+                <img *ngIf = "brochureSource" [src] = "brochureSource" alt="Brochure preview...">
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 medium-6 columns">                     
+                <label>Contact name
+                    <input type="text" placeholder="Enter Name" id="username" autofocus
+                        [(ngModel)]="username" name="username" required #na="ngModel">
+                    <div [hidden]="na.valid || na.pristine" class="alert callout">
+                    Name is required
+                    </div>
+                </label>                           
+             </div>
+        </div>
+        <div class="row align-center">
+            <div class="small-12 columns">
+                <div class="expanded button-group">
+                <button class="success button " type="button" [disabled]="!psTitle.valid || !psSport.valid" 
+                        (click)="createBrochure()">Add Brochure</button>
+                    <button class="cancel button" type="button" (click)="cancel()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    
+    </form>
+    

@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/ccs?family=Coiny');
+
+.top-bar-title{
+    font-family: 'Coiny', cursive;
+    font-size: 22px;
+    color: #fff;
+}
+.nav-menu a{
+    color: #fff;
+}

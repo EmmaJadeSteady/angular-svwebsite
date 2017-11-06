@@ -1,0 +1,24 @@
+<div class="top-bar">
+    <div class="top-bar-title">Brochure Admin</div>
+
+    <div class="top-bar-left">
+        <ul class="menu">
+            <li class="admin-menu"><a [routerLink]="['/admin/brochure-admin']">Manage Brochures</a></li>
+            <li class="admin-menu"><a [routerLink]="['/admin/order-admin']">Manage Orders</a></li>
+            
+        </ul>
+    </div>
+    <div *ngIf = "theUser" class="top-bar-right">
+        <ul class="menu">
+            <li class="admin-menu"><a (click)="logout()">Logout</a></li>
+            <li class="admin-menu"><a>{{theUser}} Logged in</a></li>
+        </ul>
+    </div>
+
+</div>
+<div class="row">
+    <img src="../adminShared/images/code.jpg" >
+</div>
+<div class="row align-center">
+    <h2>This area is restricted to authorized users only</h2> 
+</div>
